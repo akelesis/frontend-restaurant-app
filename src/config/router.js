@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '../views/Home.vue'
 import Dashboard from '../components/dashboard/Dashboard.vue'
 import Restaurant from '../components/restaurant/Restaurant.vue'
+import Table from '../components/restaurant/Table.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/restaurant',
       name: 'restaurant',
       component: Restaurant
+    },
+    {
+      path: '/table',
+      name: 'table',
+      component: Table
     }
   ]
 })

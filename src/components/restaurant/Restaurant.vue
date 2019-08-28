@@ -1,216 +1,237 @@
 <template>
-    <div class="restaurant">
-        <div class="restaurant-toolbar">
-            <div class="toolcard" @click="$bvModal.show('open-table')">
-                <i class="far fa-plus-square"></i>
-                <p>Abrir Mesa</p>
-            </div>
-            <div class="toolcard">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <p>Relatórios</p>
-            </div>
-            <div class="toolcard" @click="$bvModal.show('add-stock-modal')">
-                <i class="fas fa-store"></i>
-                <p>Add ao estoque</p>
-            </div>
-            <div class="toolcard" @click="$router.push({path: '/dashboard'})">
-                <i class="fas fa-home"></i>
-                <p>Início</p>
-            </div>
-            <div class="toolcard" @click="$router.push({path: '/'})">
-                <i class="fas fa-door-open"></i>
-                <p>Sair</p>
-            </div>
-        </div>
-
-        <b-modal id="open-table" hide-footer>
-            <template slot="modal-title">
-                Abrir Mesa
-            </template>
-            <div class="d-block text-center">
-                <b-input-group size="md" prepend="Nome (Opcional)">
-                    <b-form-input v-model="table.name"></b-form-input> 
-                </b-input-group>
-                <b-input-group size="md" prepend="Número da mesa">
-                    <b-form-input type="number" v-model="table.number" min="1" max="99"></b-form-input>
-                </b-input-group>
-                <b-input-group size="md" prepend="Número de clientes">
-                    <b-form-input type="number" v-model="table.clients" min="1" max="99"></b-form-input>
-                </b-input-group>
-            </div>
-            <b-button class="mt-3" variant="primary" block @click="openTable()">Abrir Mesa</b-button>
-        </b-modal>
-
-        <b-modal id="add-stock-modal" size="lg" title="Adicionar ao estoque" hide-footer>
-            <b-input-group size="md" prepend="Nome do produto">
-                <b-form-input></b-form-input> 
-            </b-input-group>
-            <b-form-textarea
-                id="textarea"
-                v-model="product.text"
-                class="mt-3"
-                placeholder="Descrição do produto"
-                rows="3"
-                max-rows="6"
-            ></b-form-textarea>
-            <b-input-group size="md" prepend="Preço">
-                <b-form-input></b-form-input> 
-            </b-input-group>
-            <b-input-group size="md" prepend="quantidade em estoque">
-                <b-form-input type="number" aria-label="Text input with checkbox" min="0" max="999"></b-form-input>
-            </b-input-group>
-            <b-button class="mt-3" variant="primary" block @click="addStock()">Inserir produto</b-button>
-        </b-modal>
-
-        <b-modal id="addProd" size="lg" title="Adicionar Pedido" hide-footer>
-            <b-input-group size="md" prepend="Nome do produto">
-                <b-form-input></b-form-input> 
-            </b-input-group>
-            <b-form-textarea
-                id="textarea"
-                v-model="product.text"
-                class="mt-3"
-                placeholder="Descrição do produto"
-                rows="3"
-                max-rows="6"
-            ></b-form-textarea>
-            <b-input-group size="md" prepend="Preço">
-                <b-form-input></b-form-input> 
-            </b-input-group>
-            <b-input-group size="md" prepend="quantidade em estoque">
-                <b-form-input type="number" aria-label="Text input with checkbox" min="0" max="999"></b-form-input>
-            </b-input-group>
-            <b-button class="mt-3" variant="primary" block @click="addStock()">Inserir produto</b-button>
-        </b-modal>
-
-        <div class="tablemap-container">
-            <div class="table-map">
-                <h3>Mapa de mesas: </h3>
-                <div class="table-card" v-for="table in tables" v-bind:key="table.number" @click="addProd(table)">
-                    <h3>{{table.number}}</h3>
-                    <span class="open">Aberta</span>
-                </div>
-
-            </div>
-        </div>
-        
+  <div class="restaurant">
+    <!-- RESTAURANT TOOLBAR -->
+    <div class="restaurant-toolbar">
+      <div class="toolcard" @click="$bvModal.show('open-table')">
+        <i class="far fa-plus-square"></i>
+        <p>Abrir Mesa</p>
+      </div>
+      <div class="toolcard">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <p>Relatórios</p>
+      </div>
+      <div class="toolcard" @click="$bvModal.show('add-stock-modal')">
+        <i class="fas fa-store"></i>
+        <p>Add ao estoque</p>
+      </div>
+      <div class="toolcard" @click="$router.push({path: '/dashboard'})">
+        <i class="fas fa-home"></i>
+        <p>Início</p>
+      </div>
+      <div class="toolcard" @click="$router.push({path: '/'})">
+        <i class="fas fa-door-open"></i>
+        <p>Sair</p>
+      </div>
     </div>
+    <!-- OPEN TABLE -->
+    <b-modal id="open-table" hide-footer>
+      <template slot="modal-title">Abrir Mesa</template>
+      <div class="d-block text-center">
+        <b-input-group size="md" prepend="Nome (Opcional)">
+          <b-form-input v-model="table.name"></b-form-input>
+        </b-input-group>
+        <b-input-group size="md" prepend="Número da mesa">
+          <b-form-input type="number" v-model="table.number" min="1" max="99"></b-form-input>
+        </b-input-group>
+        <b-input-group size="md" prepend="Número de clientes">
+          <b-form-input type="number" v-model="table.clients" min="1" max="99"></b-form-input>
+        </b-input-group>
+      </div>
+      <b-button class="mt-3" variant="primary" block @click="openTable()">Abrir Mesa</b-button>
+    </b-modal>
+
+    <!-- ADD TO STOCK -->
+    <b-modal id="add-stock-modal" size="lg" title="Adicionar ao estoque" hide-footer>
+      <b-input-group size="md" prepend="Nome do produto">
+        <b-form-input type="text" v-model="product.name"></b-form-input>
+      </b-input-group>
+      <b-form-textarea
+        id="textarea"
+        v-model="product.text"
+        class="mt-3"
+        placeholder="Descrição do produto"
+        rows="3"
+        max-rows="6"
+      ></b-form-textarea>
+      <b-input-group size="md" prepend="Preço">
+        <b-form-input type="text" v-model="product.preco"></b-form-input>
+      </b-input-group>
+      <b-input-group size="md" prepend="quantidade em estoque">
+        <b-form-input type="number" min="0" max="999" v-model="product.quantity"></b-form-input>
+      </b-input-group>
+      <b-button class="mt-3" variant="primary" block @click="addStock()">Inserir produto</b-button>
+    </b-modal>
+
+    <!-- MAIN SCREEN -->
+    <div class="tablemap-container">
+      <div class="table-map">
+        <h3>Mapa de mesas:</h3>
+        <div
+          class="table-card"
+          v-for="table in tables"
+          v-bind:key="table.number"
+          @click="addOrder(table)"
+        >
+          <h3>{{table.number}}</h3>
+          <span class="open">Aberta</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-            tables:[],
-            table: {},
-            product: {},
-            couvert: 3
-        }
+  data() {
+    return {
+      product: {},
+      pedido: [],
+      couvert: 3
+    };
+  },
+  methods: {
+    showTables() {
+      console.log(this.tables);
     },
-    methods: {
-        openTable(){
-            this.tables.push(this.table)
-            this.$bvModal.hide('open-table')
-            console.log(this.tables)
-        },
-        addStock(){
-            this.$bvModal.hide('add-stock-modal')
-        },
-        addProd(table){
-            this.table = table
-            this.$bvModal.show('addProd')
-        }
+    openTable() {
+      let aux = {...this.table}
+      this.$store.commit('addTable', aux);
+      this.table = {}
+      this.$bvModal.hide("open-table");
+    },
+    addStock() {
+      this.product.id = this.products.length;
+      let aux = {...this.product}
+      this.$store.commit("addProd", aux);
+      this.product = {};
+      this.$bvModal.hide("add-stock-modal");
+    },
+    addOrder(table) {
+      this.$store.commit("getTable", table);
+      this.$router.push({ path: "/table" });
+    },
+    addProd(prod) {
+      this.table.order.push(prod);
     }
-}
+  },
+  computed: {
+    products() {
+      return this.$store.state.products;
+    },
+    table() {
+      return this.$store.state.table;
+    },
+    tables(){
+        return this.$store.state.tables
+    }
+  },
+  mounted(){
+      this.showTables()
+  }
+};
 </script>
 
 <style>
-    .restaurant-toolbar{
-        width: 100vw;
-        height: 80px;
-        background-color: #ccdbdc;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.restaurant-toolbar {
+  width: 100vw;
+  height: 80px;
+  background-color: #ccdbdc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .toolcard{
-        height: 100%;
-        width: 150px;
-        text-align: center;
-        padding: 10px;
-        border-left: 1px solid #999;
-        border-right: 1px solid #999;
-        margin: 0;
-        cursor: pointer;
-    }
+.toolcard {
+  height: 100%;
+  width: 150px;
+  text-align: center;
+  padding: 10px;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+  margin: 0;
+  cursor: pointer;
+}
 
-    .toolcard:hover{
-        background: #a8c0ff;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #005AA7, #a8c0ff);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #005AA7, #a8c0ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        color: white;
-    }
+.toolcard:hover {
+  background: #a8c0ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #005aa7,
+    #a8c0ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #005aa7,
+    #a8c0ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
 
-    .toolcard i{
-        font-size: 25px;
-        margin: 7px 0;
-    }
+.toolcard i {
+  font-size: 25px;
+  margin: 7px 0;
+}
 
-    .tablemap-container{
-        display: flex;
-        flex-wrap: wrap;
-        width: 100vw;
-        justify-content: center;
-    }
+.tablemap-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  justify-content: center;
+}
 
-    .table-map{
-        width: 70vw;
-        display: flex;
-        flex-wrap: wrap;
-        text-align: center;
-        margin-top: 50px;
-        color:#666;
-        
-    }
+.table-map {
+  width: 70vw;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-top: 50px;
+  color: #666;
+}
 
-    
-    .table-map h3{
-        width: 100%;
-    }
-    
-    .table-card{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        border: 1px solid #bbb;
-        border-radius: 5px;
-        height: 100px;
-        width: 100px;
-        background: #eee;
-        margin: 2px;
-    }
+.table-map h3 {
+  width: 100%;
+}
 
-    .table-card:hover{
-        background: #C9D6FF;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to top, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to top, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        color: white;
-        cursor: pointer;
-    }
+.table-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  height: 100px;
+  width: 100px;
+  background: #eee;
+  margin: 2px;
+}
 
-    .open{
-        padding: 5px 10px;
-        background-color: #0bb802;
-        color: #fff;
-        width: 100%;
-    }
+.table-card:hover {
+  background: #c9d6ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #e2e2e2,
+    #c9d6ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #e2e2e2,
+    #c9d6ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+  cursor: pointer;
+}
 
-    .closed{
-        padding: 5px 10px;
-        background-color: #b80202;
-        color: #fff;
-        width: 100%;
-    }
+.open {
+  padding: 5px 10px;
+  background-color: #0bb802;
+  color: #fff;
+  width: 100%;
+}
+
+.closed {
+  padding: 5px 10px;
+  background-color: #b80202;
+  color: #fff;
+  width: 100%;
+}
 </style>
