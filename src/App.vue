@@ -10,9 +10,6 @@
 import Menu from '@/components/templates/Menu.vue'
 import Content from '@/components/templates/Content.vue'
 import Footer from '@/components/templates/Footer.vue'
-import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
 
 export default {
   name: "app",
@@ -25,6 +22,10 @@ export default {
 </script>
 
 <style>
+body{
+  margin: 0;
+  padding: 0;
+}
 
 #menu{
   grid-area: "menu";

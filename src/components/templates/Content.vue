@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+.content{
+    height: 80vh;
+}
 </style>
