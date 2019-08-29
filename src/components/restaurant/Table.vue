@@ -36,7 +36,7 @@
       <div class="bill">
         Subtotal: R$ {{bill.toFixed(2).replace('.', ',')}}
         <b-input-group size="md" prepend="couvert">
-          <b-form-input type="number" v-model="couvert" min="0" max="999" @change="calculateTotal"></b-form-input>
+          <b-form-input type="number" v-model="couvert" min="0" max="999" @change="getBill"></b-form-input>
         </b-input-group>
         <p>Dez porcento: R${{tip}}</p>
         <p>Total: R${{total}}</p>
@@ -79,20 +79,21 @@ export default {
       this.product = item;
     },
     getBill() {
+      this.bill = 0
       for (let i = 0; i < this.table.products.length; i++) {
         this.bill +=
           parseFloat(this.table.products[i].preco) *
           parseFloat(this.table.products[i].quantity);
       }
-    },
-    calculateTotal(){
-        this.tip = (this.bill * 0.1).toFixed(2).replace('.', ',')
-        this.total = this.bill + (this.couvert * this.table.clients) + parseFloat(this.tip)
+        this.tip = (this.bill * 0.1)
+        this.total = parseFloat(this.bill) + parseFloat(this.couvert * this.table.clients) + parseFloat(this.tip)
         this.total = this.total.toFixed(2).replace('.', ',')
+        this.tip = this.tip.toFixed(2).replace('.', ',')
     },
+    
     closeTable(){
         this.$store.commit('addClosedTable', this.table)
-        console.log({...this.closedTable})
+        console.log({...this.closedTables})
 
     }
   },
@@ -104,12 +105,11 @@ export default {
       return this.$store.state.table
     },
     closedTables(){
-      return this.$store.state.closedTable
+      return this.$store.state.closedTables
     }
   },
   mounted() {
-    this.getBill(),
-    this.calculateTotal()
+    this.getBill()
   }
 };
 </script>

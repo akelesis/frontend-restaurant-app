@@ -94,10 +94,12 @@ export default {
       //console.log(this.tables);
     },
     openTable() {
-      let aux = {...this.table}
       this.table.id = this.tables.length
+      this.table.products = []
+      let aux = {...this.table}
       this.$store.commit('addTable', aux);
       this.$store.state.table = {}
+      aux = {}
       this.$bvModal.hide("open-table");
     },
     addStock() {

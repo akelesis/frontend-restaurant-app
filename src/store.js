@@ -27,6 +27,7 @@ export default new Vuex.Store({
       state.table = payload
     },
     addTable(state, payload){
+      console.log({...payload})
       state.tables.push(payload)
     },
     insertOrder(state, payload){
