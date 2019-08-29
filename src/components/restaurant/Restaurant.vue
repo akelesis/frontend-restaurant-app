@@ -69,7 +69,7 @@
         <div
           class="table-card"
           v-for="table in tables"
-          v-bind:key="table.number"
+          :key="table.number"
           @click="addOrder(table)"
         >
           <h3>{{table.number}}</h3>
@@ -91,12 +91,13 @@ export default {
   },
   methods: {
     showTables() {
-      console.log(this.tables);
+      //console.log(this.tables);
     },
     openTable() {
       let aux = {...this.table}
+      this.table.id = this.tables.length
       this.$store.commit('addTable', aux);
-      this.table = {}
+      this.$store.state.table = {}
       this.$bvModal.hide("open-table");
     },
     addStock() {
