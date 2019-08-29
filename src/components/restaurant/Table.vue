@@ -92,7 +92,12 @@ export default {
     },
     
     closeTable(){
-        this.$store.commit('addClosedTable', this.table)
+        const closedTable = {}
+        const today = new Date()
+        closedTable.bill = this.bill
+        closedTable.date = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDay()
+        closedTable.id = this.table.id
+        this.$store.commit('addClosedTable', closedTable)
         console.log({...this.closedTables})
 
     }

@@ -20,7 +20,8 @@ export default new Vuex.Store({
       state.products.push(payload)
     },
     addClosedTable(state, payload){
-      state.tables.splice(payload.id)
+      state.tables.splice(payload.id, 1)
+      payload.id = state.closedTables.length
       state.closedTables.push(payload)
     },
     getTable(state, payload){

@@ -6,7 +6,7 @@
         <i class="far fa-plus-square"></i>
         <p>Abrir Mesa</p>
       </div>
-      <div class="toolcard">
+      <div class="toolcard" @click="goToReports()">
         <i class="fas fa-file-invoice-dollar"></i>
         <p>Relatórios</p>
       </div>
@@ -90,8 +90,8 @@ export default {
     };
   },
   methods: {
-    showTables() {
-      //console.log(this.tables);
+    goToReports() {
+      this.$router.push('reports')
     },
     openTable() {
       this.table.id = this.tables.length
