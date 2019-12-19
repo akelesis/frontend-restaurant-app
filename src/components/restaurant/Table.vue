@@ -100,6 +100,10 @@ export default {
         this.$store.commit('addClosedTable', closedTable)
         console.log({...this.closedTables})
 
+    },
+
+    loadProducts(){
+      
     }
   },
   computed: {
@@ -114,7 +118,8 @@ export default {
     }
   },
   mounted() {
-    this.getBill()
+    this.getBill(),
+    this.loadProducts()
   }
 };
 </script>

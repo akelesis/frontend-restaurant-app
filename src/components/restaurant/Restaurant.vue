@@ -10,10 +10,10 @@
         <i class="fas fa-file-invoice-dollar"></i>
         <p>Relatórios</p>
       </div>
-      <div class="toolcard" @click="$bvModal.show('add-stock-modal')">
+      <!-- <div class="toolcard" @click="$bvModal.show('add-stock-modal')">
         <i class="fas fa-store"></i>
         <p>Add ao estoque</p>
-      </div>
+      </div> -->
       <div class="toolcard" @click="$router.push({path: '/dashboard'})">
         <i class="fas fa-home"></i>
         <p>Início</p>
@@ -41,7 +41,7 @@
     </b-modal>
 
     <!-- ADD TO STOCK -->
-    <b-modal id="add-stock-modal" size="lg" title="Adicionar ao estoque" hide-footer>
+    <!-- <b-modal id="add-stock-modal" size="lg" title="Adicionar ao estoque" hide-footer>
       <b-input-group size="md" prepend="Nome do produto">
         <b-form-input type="text" v-model="product.name"></b-form-input>
       </b-input-group>
@@ -60,7 +60,7 @@
         <b-form-input type="number" min="0" max="999" v-model="product.quantity"></b-form-input>
       </b-input-group>
       <b-button class="mt-3" variant="primary" block @click="addStock()">Inserir produto</b-button>
-    </b-modal>
+    </b-modal> -->
 
     <!-- MAIN SCREEN -->
     <div class="tablemap-container">
